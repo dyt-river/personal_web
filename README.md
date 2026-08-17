@@ -15,7 +15,7 @@ Update these fields first:
 5. `work`: projects, publications, and writing
 6. `timeline`: education and positions
 
-The current copy is a conservative starter based only on the public GitHub handle `dyt-river`; it intentionally avoids inventing academic credentials or achievements.
+The current copy presents Yutong Dong’s research, projects, education, and selected experience. Public-facing content intentionally omits private contact details and other sensitive personal information.
 
 ## Preview locally
 
