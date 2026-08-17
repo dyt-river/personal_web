@@ -1,0 +1,51 @@
+# Personal Research Website
+
+A fast, accessible, and dependency-free personal website for research, selected work, writing, and collaboration.
+
+## Personalize the content
+
+Most content lives in one file: [`data/profile.js`](data/profile.js).
+
+Update these fields first:
+
+1. `identity`: name, role, headline, portrait, email
+2. `social`: GitHub, Scholar, ORCID, LinkedIn, and other profiles
+3. `about` and `principles`
+4. `focus`: research or professional areas
+5. `work`: projects, publications, and writing
+6. `timeline`: education and positions
+
+The current copy is a conservative starter based only on the public GitHub handle `dyt-river`; it intentionally avoids inventing academic credentials or achievements.
+
+## Preview locally
+
+The site has no build step. Start any static file server in the repository root, for example:
+
+```bash
+python -m http.server 4173
+```
+
+Then open <http://localhost:4173>.
+
+## Publish with GitHub Pages
+
+The included workflow at `.github/workflows/pages.yml` deploys the site whenever `main` is updated.
+
+In the repository settings:
+
+1. Open **Settings → Pages**.
+2. Under **Build and deployment**, choose **GitHub Actions**.
+3. If the repository is private and your plan does not support private GitHub Pages, make it public first.
+
+## Design notes
+
+- Original responsive design inspired by modern editorial portfolios
+- Light and dark themes with saved preference
+- Keyboard-accessible navigation and reduced-motion support
+- Dynamic work filters
+- Semantic HTML and social metadata
+- No framework, package manager, analytics, or tracking
+
+## License
+
+Code is available under the [MIT License](LICENSE). Replace starter copy and imagery with your own content before treating the site as a finished public profile.
