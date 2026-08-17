@@ -14,7 +14,7 @@
       property="og:description"
       content="Research in corpus semantics, cognitive linguistics, digital humanities, and cross-cultural education."
     />
-    <meta property="og:image" content="https://github.com/dyt-river.png?size=600" />
+    <meta property="og:image" content="https://dyt-river.github.io/personal_web/assets/profile-yutong.jpg" />
     <meta name="twitter:card" content="summary" />
     <title>Yutong Dong — Linguistics Researcher</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
@@ -30,24 +30,25 @@
     <script src="assets/site.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main" data-ui="skipToContent">Skip to content</a>
 
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="Back to the top">
+      <a class="brand" href="#top" aria-label="Back to the top" data-ui-aria="backToTop">
         <span class="brand-mark" data-monogram>YD</span>
         <span class="brand-name" data-name>Yutong Dong</span>
       </a>
 
       <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#about">About</a>
-        <a href="#focus">Focus</a>
-        <a href="#work">Work</a>
-        <a href="#journey">Journey</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" data-ui="about">About</a>
+        <a href="#focus" data-ui="focus">Focus</a>
+        <a href="#work" data-ui="work">Work</a>
+        <a href="#journey" data-ui="journey">Journey</a>
+        <a href="#contact" data-ui="contact">Contact</a>
       </nav>
 
       <div class="header-actions">
-        <button class="icon-button" type="button" data-theme-toggle aria-label="Switch color theme">
+        <button class="language-button" type="button" data-language-toggle aria-label="切换至中文">中文</button>
+        <button class="icon-button" type="button" data-theme-toggle aria-label="Switch color theme" data-ui-aria="switchTheme">
           <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="3.5"></circle>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path>
@@ -58,16 +59,16 @@
         </button>
         <button class="menu-button" type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu">
           <span></span><span></span>
-          <span class="sr-only">Open navigation</span>
+          <span class="sr-only" data-ui="openNavigation">Open navigation</span>
         </button>
       </div>
 
       <nav class="mobile-nav" id="mobile-menu" data-mobile-menu aria-label="Mobile navigation">
-        <a href="#about">About</a>
-        <a href="#focus">Focus</a>
-        <a href="#work">Work</a>
-        <a href="#journey">Journey</a>
-        <a href="#contact">Contact</a>
+        <a href="#about" data-ui="about">About</a>
+        <a href="#focus" data-ui="focus">Focus</a>
+        <a href="#work" data-ui="work">Work</a>
+        <a href="#journey" data-ui="journey">Journey</a>
+        <a href="#contact" data-ui="contact">Contact</a>
       </nav>
     </header>
 
@@ -80,8 +81,8 @@
             I am an undergraduate in Chinese Language and Literature at Shanghai Jiao Tong University, working across corpus-based lexical semantics, cognitive linguistics, digital humanities, and international Chinese education.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore my work <span aria-hidden="true">↘</span></a>
-            <a class="text-link" data-email-link href="#contact">Start a conversation <span aria-hidden="true">→</span></a>
+            <a class="button button-primary" href="#work"><span data-ui="exploreWork">Explore my work</span> <span aria-hidden="true">↘</span></a>
+            <a class="text-link" data-email-link href="#contact"><span data-ui="startConversation">Start a conversation</span> <span aria-hidden="true">→</span></a>
           </div>
         </div>
 
@@ -91,8 +92,8 @@
             <img
               class="portrait"
               data-avatar
-              src="https://github.com/dyt-river.png?size=480"
-              alt="Profile image of Yutong Dong"
+              src="assets/profile-yutong.jpg"
+              alt="Portrait of Yutong Dong"
               width="480"
               height="480"
             />
@@ -106,16 +107,16 @@
         </aside>
 
         <div class="hero-footnote reveal" aria-hidden="true">
-          <span>Scroll to explore</span>
+          <span data-ui="scrollToExplore">Scroll to explore</span>
           <span class="scroll-line"></span>
         </div>
       </section>
 
       <section class="about section-shell section-pad" id="about" aria-labelledby="about-title">
-        <div class="section-kicker reveal"><span>01</span> About</div>
+        <div class="section-kicker reveal"><span>01</span> <span class="section-label" data-ui="aboutLabel">About</span></div>
         <div class="about-grid">
           <div class="section-heading reveal">
-            <h2 id="about-title">Language, meaning, and culture.</h2>
+            <h2 id="about-title" data-ui="aboutTitle">Language, meaning, and culture.</h2>
           </div>
           <div class="about-copy reveal" data-about>
             <p>
@@ -131,21 +132,21 @@
 
       <section class="focus section-pad" id="focus" aria-labelledby="focus-title">
         <div class="section-shell">
-          <div class="section-kicker reveal"><span>02</span> Focus</div>
+          <div class="section-kicker reveal"><span>02</span> <span class="section-label" data-ui="focusLabel">Focus</span></div>
           <div class="section-intro reveal">
-            <h2 id="focus-title">Questions worth staying with.</h2>
-            <p>Three connected areas shape what I research, build, and teach.</p>
+            <h2 id="focus-title" data-ui="focusTitle">Questions worth staying with.</h2>
+            <p data-ui="focusIntro">Three connected areas shape what I research, build, and teach.</p>
           </div>
           <div class="focus-grid" data-focus-grid></div>
         </div>
       </section>
 
       <section class="work section-shell section-pad" id="work" aria-labelledby="work-title">
-        <div class="section-kicker reveal"><span>03</span> Selected work</div>
+        <div class="section-kicker reveal"><span>03</span> <span class="section-label" data-ui="workLabel">Selected work</span></div>
         <div class="work-header reveal">
           <div>
-            <h2 id="work-title">A working archive.</h2>
-            <p>Research, interdisciplinary projects, and writing grounded in evidence and practice.</p>
+            <h2 id="work-title" data-ui="workTitle">A working archive.</h2>
+            <p data-ui="workIntro">Research, interdisciplinary projects, and writing grounded in evidence and practice.</p>
           </div>
           <div class="filter-list" data-filters aria-label="Filter selected work"></div>
         </div>
@@ -154,11 +155,11 @@
 
       <section class="journey section-pad" id="journey" aria-labelledby="journey-title">
         <div class="section-shell">
-          <div class="section-kicker reveal"><span>04</span> Journey</div>
+          <div class="section-kicker reveal"><span>04</span> <span class="section-label" data-ui="journeyLabel">Journey</span></div>
           <div class="journey-grid">
             <div class="section-heading reveal">
-              <h2 id="journey-title">The path so far.</h2>
-              <p>A concise timeline of the work and learning that shaped my perspective.</p>
+              <h2 id="journey-title" data-ui="journeyTitle">The path so far.</h2>
+              <p data-ui="journeyIntro">A concise timeline of the work and learning that shaped my perspective.</p>
             </div>
             <ol class="timeline" data-timeline></ol>
           </div>
@@ -167,15 +168,15 @@
 
       <section class="contact section-shell section-pad" id="contact" aria-labelledby="contact-title">
         <div class="contact-card reveal">
-          <p class="section-kicker"><span>05</span> Contact</p>
+          <p class="section-kicker"><span>05</span> <span class="section-label" data-ui="contactLabel">Contact</span></p>
           <div>
-            <h2 id="contact-title">Have a question worth exploring together?</h2>
+            <h2 id="contact-title" data-ui="contactTitle">Have a question worth exploring together?</h2>
             <p data-contact-copy>
               I welcome conversations about corpus linguistics, cognitive semantics, digital humanities, international Chinese education, and interdisciplinary collaboration.
             </p>
           </div>
           <a class="button button-light" data-email-link href="https://github.com/dyt-river">
-            Get in touch <span aria-hidden="true">↗</span>
+            <span data-ui="getInTouch">Get in touch</span> <span aria-hidden="true">↗</span>
           </a>
           <div class="contact-decoration" aria-hidden="true"><span></span><span></span><span></span></div>
         </div>
@@ -185,11 +186,11 @@
     <footer class="site-footer section-shell">
       <div>
         <span class="brand-mark small" data-monogram>YD</span>
-        <p>Corpus evidence, cognitive meaning, and cultural connection.</p>
+        <p data-ui="footerTagline">Corpus evidence, cognitive meaning, and cultural connection.</p>
       </div>
       <div class="footer-links" data-footer-links></div>
       <div class="footer-meta">
-        <p>© <span data-year></span> <span data-name>Yutong Dong</span>. Built with care.</p>
+        <p>© <span data-year></span> <span data-name>Yutong Dong</span>. <span data-ui="builtWithCare">Built with care.</span></p>
         <p class="backend-status" data-supabase-status data-state="checking" aria-live="polite">
           <span aria-hidden="true"></span> Connecting to Blue2199
         </p>

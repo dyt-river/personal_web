@@ -1,8 +1,8 @@
 (function () {
   "use strict";
 
-  const data = window.PROFILE_DATA;
-  if (!data) return;
+  const profileStore = window.PROFILE_DATA;
+  if (!profileStore?.locales) return;
 
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -14,11 +14,40 @@
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
 
+  const browserLocale = navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en";
+  let locale = localStorage.getItem("locale");
+  if (!profileStore.locales[locale]) locale = browserLocale;
+  let data = profileStore.locales[locale];
+  let supabaseState = "checking";
+
   const setText = (selector, value) => {
     $$(selector).forEach((node) => {
       node.textContent = value;
     });
   };
+
+  function renderStaticUi() {
+    document.documentElement.lang = locale === "zh" ? "zh-CN" : "en";
+    $$("[data-ui]").forEach((node) => {
+      const value = data.ui[node.dataset.ui];
+      if (value) node.textContent = value;
+    });
+    $$("[data-ui-aria]").forEach((node) => {
+      const value = data.ui[node.dataset.uiAria];
+      if (value) node.setAttribute("aria-label", value);
+    });
+
+    const languageButton = $("[data-language-toggle]");
+    languageButton.textContent = data.ui.languageButton;
+    languageButton.setAttribute("aria-label", data.ui.switchLanguage);
+    languageButton.setAttribute("title", data.ui.switchLanguage);
+    $("[data-filters]").setAttribute("aria-label", data.ui.filterLabel);
+
+    document.title = data.meta.title;
+    $('meta[name="description"]').content = data.meta.description;
+    $('meta[property="og:title"]').content = data.meta.title;
+    $('meta[property="og:description"]').content = data.meta.ogDescription;
+  }
 
   function renderIdentity() {
     const identity = data.identity;
@@ -31,22 +60,20 @@
 
     const avatar = $("[data-avatar]");
     if (avatar) {
-      avatar.src = identity.avatar;
-      avatar.alt = identity.avatarAlt || `Portrait of ${identity.name}`;
+      avatar.src = profileStore.shared.avatar;
+      avatar.alt = identity.avatarAlt;
     }
 
-    const preferredContact = identity.email
-      ? `mailto:${identity.email}`
-      : data.social.find((item) => item.label.toLowerCase() === "github")?.url || "#contact";
-    $$('[data-email-link]').forEach((link) => {
+    const preferredContact = profileStore.shared.email
+      ? `mailto:${profileStore.shared.email}`
+      : profileStore.shared.social.find((item) => item.label.toLowerCase() === "github")?.url || "#contact";
+    $$("[data-email-link]").forEach((link) => {
       link.href = preferredContact;
     });
-
-    document.title = `${identity.name} — ${identity.role}`;
   }
 
   function renderSocial() {
-    const links = data.social
+    const links = profileStore.shared.social
       .map(
         (item) =>
           `<a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">${escapeHtml(item.label)} <span aria-hidden="true">↗</span></a>`,
@@ -87,8 +114,8 @@
       .join("");
   }
 
-  function renderWork(filter = "All") {
-    const visible = filter === "All" ? data.work : data.work.filter((item) => item.type === filter);
+  function renderWork(filter = null) {
+    const visible = filter ? data.work.filter((item) => item.type === filter) : data.work;
     const grid = $("[data-work-grid]");
     grid.innerHTML = visible
       .map(
@@ -109,20 +136,21 @@
   }
 
   function renderFilters() {
-    const types = ["All", ...new Set(data.work.map((item) => item.type))];
+    const types = [...new Set(data.work.map((item) => item.type))];
     const root = $("[data-filters]");
-    root.innerHTML = types
-      .map(
-        (type, index) =>
-          `<button type="button" class="filter-button ${index === 0 ? "active" : ""}" data-filter="${escapeHtml(type)}">${escapeHtml(type)}</button>`,
-      )
-      .join("");
-    root.addEventListener("click", (event) => {
+    root.innerHTML = [
+      `<button type="button" class="filter-button active" data-filter="">${escapeHtml(data.ui.all)}</button>`,
+      ...types.map(
+        (type) =>
+          `<button type="button" class="filter-button" data-filter="${escapeHtml(type)}">${escapeHtml(type)}</button>`,
+      ),
+    ].join("");
+    root.onclick = (event) => {
       const button = event.target.closest("[data-filter]");
       if (!button) return;
       $$("[data-filter]", root).forEach((item) => item.classList.toggle("active", item === button));
-      renderWork(button.dataset.filter);
-    });
+      renderWork(button.dataset.filter || null);
+    };
   }
 
   function renderTimeline() {
@@ -139,6 +167,46 @@
           </li>`,
       )
       .join("");
+  }
+
+  function renderBackendStatus() {
+    const status = $("[data-supabase-status]");
+    const config = window.SUPABASE_CONFIG;
+    if (!status || !config?.projectName) return;
+    status.dataset.state = supabaseState;
+    const stateLabel =
+      supabaseState === "connected"
+        ? data.ui.connected
+        : supabaseState === "offline"
+          ? data.ui.reconnecting
+          : locale === "zh"
+            ? "正在连接"
+            : "connecting";
+    status.lastChild.textContent = ` ${config.projectName} ${stateLabel}`;
+  }
+
+  function renderAll() {
+    renderStaticUi();
+    renderIdentity();
+    renderSocial();
+    renderAbout();
+    renderFocus();
+    renderFilters();
+    renderWork();
+    renderTimeline();
+    setText("[data-contact-copy]", data.contact.copy);
+    setText("[data-year]", new Date().getFullYear());
+    renderBackendStatus();
+    observeReveals();
+  }
+
+  function setupLanguage() {
+    $("[data-language-toggle]").addEventListener("click", () => {
+      locale = locale === "zh" ? "en" : "zh";
+      data = profileStore.locales[locale];
+      localStorage.setItem("locale", locale);
+      renderAll();
+    });
   }
 
   function setupTheme() {
@@ -174,21 +242,19 @@
   }
 
   async function setupSupabase() {
-    const status = $("[data-supabase-status]");
     const config = window.SUPABASE_CONFIG;
-    if (!status || !config?.url || !config?.publishableKey) return;
+    if (!config?.url || !config?.publishableKey) return;
 
     try {
       const response = await fetch(`${config.url}/auth/v1/health`, {
         headers: { apikey: config.publishableKey },
       });
       if (!response.ok) throw new Error("Supabase health check failed");
-      status.dataset.state = "connected";
-      status.lastChild.textContent = ` ${config.projectName} connected`;
+      supabaseState = "connected";
     } catch {
-      status.dataset.state = "offline";
-      status.lastChild.textContent = ` ${config.projectName} reconnecting`;
+      supabaseState = "offline";
     }
+    renderBackendStatus();
   }
 
   let revealObserver;
@@ -209,17 +275,9 @@
     $$(".reveal:not(.visible)").forEach((element) => revealObserver.observe(element));
   }
 
-  renderIdentity();
-  renderSocial();
-  renderAbout();
-  renderFocus();
-  renderFilters();
-  renderWork();
-  renderTimeline();
-  setText("[data-contact-copy]", data.contact.copy);
-  setText("[data-year]", new Date().getFullYear());
   setupTheme();
+  setupLanguage();
   setupNavigation();
+  renderAll();
   setupSupabase();
-  observeReveals();
 })();

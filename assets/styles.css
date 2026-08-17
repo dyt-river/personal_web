@@ -46,7 +46,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "DM Sans", system-ui, sans-serif;
+  font-family: "DM Sans", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -95,7 +95,7 @@ h2,
 h3,
 .brand,
 .button {
-  font-family: "Manrope", system-ui, sans-serif;
+  font-family: "Manrope", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
 }
 
 h1 {
@@ -247,6 +247,7 @@ h3 {
 }
 
 .icon-button,
+.language-button,
 .menu-button {
   display: grid;
   width: 42px;
@@ -260,7 +261,25 @@ h3 {
   transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
 }
 
+.language-button {
+  display: inline-grid;
+  width: auto;
+  min-width: 54px;
+  height: 42px;
+  padding: 0 13px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+}
+
 .icon-button:hover,
+.language-button:hover,
 .menu-button:hover {
   border-color: var(--line-strong);
   background: var(--paper-elevated);
@@ -510,6 +529,16 @@ h3 {
 
 .section-kicker span {
   color: var(--coral);
+}
+
+.section-kicker .section-label {
+  color: inherit;
+}
+
+[lang^="zh"] h1,
+[lang^="zh"] h2,
+[lang^="zh"] h3 {
+  letter-spacing: -0.035em;
 }
 
 .about-grid {

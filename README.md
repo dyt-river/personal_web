@@ -4,12 +4,12 @@ A fast, accessible, and dependency-free personal website for research, selected 
 
 ## Personalize the content
 
-Most content lives in one file: [`data/profile.js`](data/profile.js).
+Most content lives in one file: [`data/profile.js`](data/profile.js). Shared links and the portrait are stored under `shared`; bilingual copy is stored under `locales.en` and `locales.zh`.
 
 Update these fields first:
 
-1. `identity`: name, role, headline, portrait, email
-2. `social`: GitHub, Scholar, ORCID, LinkedIn, and other profiles
+1. `shared`: portrait, email, and social profiles
+2. `locales.en.identity` and `locales.zh.identity`: name, role, and headline
 3. `about` and `principles`
 4. `focus`: research or professional areas
 5. `work`: projects, publications, and writing
