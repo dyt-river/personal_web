@@ -954,6 +954,37 @@ h3 {
   gap: 18px;
 }
 
+.footer-meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.35rem;
+}
+
+.backend-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.backend-status span {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.backend-status[data-state="connected"] span {
+  background: #3da66f;
+  box-shadow: 0 0 0 0.18rem color-mix(in srgb, #3da66f 18%, transparent);
+}
+
+.backend-status[data-state="offline"] span {
+  background: var(--coral);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(22px);
@@ -1142,6 +1173,10 @@ h3 {
   .site-footer > p {
     justify-self: start;
     text-align: left;
+  }
+
+  .footer-meta {
+    justify-items: start;
   }
 }
 

@@ -37,6 +37,10 @@ In the repository settings:
 2. Under **Build and deployment**, choose **GitHub Actions**.
 3. If the repository is private and your plan does not support private GitHub Pages, make it public first.
 
+## Supabase connection
+
+The public browser connection for the `Blue2199` project lives in [`data/supabase.js`](data/supabase.js). It contains only the project URL and a publishable key, both of which are safe for browser code. Never add a secret key or `service_role` key to this repository.
+
 ## Design notes
 
 - Original responsive design inspired by modern editorial portfolios

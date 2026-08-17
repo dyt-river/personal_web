@@ -173,6 +173,24 @@
     window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 24), { passive: true });
   }
 
+  async function setupSupabase() {
+    const status = $("[data-supabase-status]");
+    const config = window.SUPABASE_CONFIG;
+    if (!status || !config?.url || !config?.publishableKey) return;
+
+    try {
+      const response = await fetch(`${config.url}/auth/v1/health`, {
+        headers: { apikey: config.publishableKey },
+      });
+      if (!response.ok) throw new Error("Supabase health check failed");
+      status.dataset.state = "connected";
+      status.lastChild.textContent = ` ${config.projectName} connected`;
+    } catch {
+      status.dataset.state = "offline";
+      status.lastChild.textContent = ` ${config.projectName} reconnecting`;
+    }
+  }
+
   let revealObserver;
   function observeReveals() {
     if (!revealObserver) {
@@ -202,5 +220,6 @@
   setText("[data-year]", new Date().getFullYear());
   setupTheme();
   setupNavigation();
+  setupSupabase();
   observeReveals();
 })();
