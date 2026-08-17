@@ -19,18 +19,18 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --paper: #111714;
-  --paper-elevated: #19211d;
-  --ink: #eef2ed;
-  --ink-soft: #aeb9b3;
-  --line: rgba(238, 242, 237, 0.14);
-  --line-strong: rgba(238, 242, 237, 0.3);
+  --paper: #25323a;
+  --paper-elevated: #35454d;
+  --ink: #f3f1ea;
+  --ink-soft: #c6cecb;
+  --line: rgba(243, 241, 234, 0.22);
+  --line-strong: rgba(243, 241, 234, 0.44);
   --forest: #b9d9ca;
-  --forest-soft: #20382f;
+  --forest-soft: #40584f;
   --coral: #f18d70;
-  --blue: #74a8bf;
-  --green: #7faf9a;
-  --shadow: 0 28px 80px rgba(0, 0, 0, 0.24);
+  --blue: #82b6cd;
+  --green: #8bbca6;
+  --shadow: 0 28px 80px rgba(4, 10, 13, 0.3);
 }
 
 * {
@@ -61,6 +61,11 @@ body::before {
   content: "";
   opacity: 0.18;
   pointer-events: none;
+}
+
+[data-theme="dark"] body::before {
+  background-image: radial-gradient(rgba(243, 241, 234, 0.18) 0.7px, transparent 0.7px);
+  opacity: 0.2;
 }
 
 a {
@@ -865,6 +870,11 @@ h3 {
   color: #f7f4ec;
   grid-template-columns: 1fr auto;
   align-items: end;
+}
+
+[data-theme="dark"] .contact-card {
+  background: #2d6257;
+  box-shadow: 0 24px 70px rgba(4, 10, 13, 0.24);
 }
 
 .contact-card .section-kicker {
